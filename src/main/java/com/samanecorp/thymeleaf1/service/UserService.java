@@ -7,6 +7,7 @@ import com.samanecorp.thymeleaf1.exception.EntityNotFoundException;
 import com.samanecorp.thymeleaf1.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Setter
 public class UserService implements IUserService {
 
 	private IUserDao userDao ;

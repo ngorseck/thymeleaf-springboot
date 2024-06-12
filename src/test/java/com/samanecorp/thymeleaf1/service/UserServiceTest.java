@@ -29,47 +29,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
 
-/*@ExtendWith(MockitoExtension.class)
-@MockitoSettings(strictness = Strictness.LENIENT)*/
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-	/*@InjectMocks
+	@InjectMocks
 	private UserService accountService;
 	@Mock
 	private IUserDao accountDao;
 	@Mock
 	private UserMapper userMapper;
 	@Mock
-	private MessageSource messageSource;*/
+	private MessageSource messageSource;
 
 
 	@BeforeEach
 	void intit() {
-		/*accountDao = mock(IUserDao.class);
+		accountDao = mock(IUserDao.class);
 		userMapper = mock(UserMapper.class);
-		messageSource = mock(MessageSource.class);*/
+		messageSource = mock(MessageSource.class);
+		accountService.setUserDao(accountDao);
+		accountService.setMessageSource(messageSource);
+		accountService.setUserMapper(userMapper);
 	}
 	
 	@Test
 	@Disabled
 	void loginSuccess() {
-		/*UserEntity userEntity = new UserEntity();
+		UserEntity userEntity = new UserEntity();
 		userEntity.setId(1L);
+		userEntity.setFirstName("Ngor");
+		userEntity.setLastName("SECK");
+		userEntity.setEmail("seck@samanecorp.com");
+		userEntity.setPassword("123456");
+
+		UserDto userDto = new UserDto();
+		userDto.setId(1L);
+		userDto.setFirstName("Ngor");
+		userDto.setLastName("SECK");
+		userDto.setEmail("seck@samanecorp.com");
+		userDto.setPassword("123456");
 		
 		when(accountDao.findByEmailAndPassword(anyString(), anyString()))
 						.thenReturn(Optional.of(userEntity));
 
-		when(userMapper.toUserEntity(any())).thenReturn(userEntity);
+		when(userMapper.toUserDto(any())).thenReturn(userDto);
 
-		when(messageSource.getMessage(anyString(), any(), any())).thenReturn(null);
-		
-		Optional<UserDto> userDto = accountService.login("seck@samanecorp.com", "passer");
-		Assertions.assertTrue(userDto.isPresent());*/
-		Assertions.assertTrue(true);
+		Optional<UserDto> user = accountService.login("seck@samanecorp.com", "passer");
+		Assertions.assertTrue(user.isPresent());
 	}
 	
 	@Test
 	void loginFailed() {
-		Assertions.assertTrue(true);
+		when(accountDao.findByEmailAndPassword(anyString(), anyString()))
+				.thenReturn(Optional.empty());
+
+		when(userMapper.toUserDto(any())).thenReturn(null);
+
+		Optional<UserDto> user = accountService.login("seck@samanecorp.com", "passer");
+
+		Assertions.assertTrue(user.isPresent());
 	}
 }
