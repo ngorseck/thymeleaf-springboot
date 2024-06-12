@@ -18,6 +18,6 @@ public class Thymeleaf1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userService.save(new UserDto(1L, "Ngor","SECK","seck@isi.sn","passer"));
+		userService.save(new UserDto(1L, "Ngor","SECK","seck@samanecorporation.com","passer"));
 	}
 }
