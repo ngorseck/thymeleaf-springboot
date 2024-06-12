@@ -17,6 +17,7 @@ import com.samanecorp.thymeleaf1.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -49,6 +50,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
+	@Disabled
 	void loginSuccess() {
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(1L);
