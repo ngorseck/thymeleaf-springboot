@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserService implements IUserService {
 
 	private IUserDao userDao ;
