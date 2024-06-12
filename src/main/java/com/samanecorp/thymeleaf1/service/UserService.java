@@ -41,9 +41,11 @@ public class UserService implements IUserService {
 	public Optional<UserDto> login(String email, String password) {
 		return userDao.findByEmailAndPassword(email, password)
 				.map(userEntity -> {
+
 					return Optional.of(userMapper.toUserDto(userEntity));
 				})
-				.orElseThrow(() -> new EntityNotFoundException(
+				.orElseThrow(
+						() -> new EntityNotFoundException(
 						messageSource.getMessage("user.notfound",
 								new Object[]{email, password},
 								Locale.getDefault())

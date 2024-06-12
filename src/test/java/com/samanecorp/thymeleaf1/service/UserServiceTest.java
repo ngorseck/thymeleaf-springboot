@@ -2,19 +2,16 @@ package com.samanecorp.thymeleaf1.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.Locale;
 import java.util.Optional;
 
 import com.samanecorp.thymeleaf1.dao.IUserDao;
-import com.samanecorp.thymeleaf1.dao.UserDao;
 import com.samanecorp.thymeleaf1.dto.UserDto;
 import com.samanecorp.thymeleaf1.entity.UserEntity;
 import com.samanecorp.thymeleaf1.exception.EntityNotFoundException;
 import com.samanecorp.thymeleaf1.mapper.UserMapper;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -23,9 +20,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
 
@@ -53,7 +47,6 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	@Disabled
 	void loginSuccess() {
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(1L);
@@ -83,10 +76,10 @@ public class UserServiceTest {
 		when(accountDao.findByEmailAndPassword(anyString(), anyString()))
 				.thenReturn(Optional.empty());
 
-		when(userMapper.toUserDto(any())).thenReturn(null);
+		when(messageSource.getMessage(anyString(), any(), any(Locale.class))).thenReturn("user with email seck@samanecorp.com and password passer not found");
 
-		Optional<UserDto> user = accountService.login("seck@samanecorp.com", "passer");
+		EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> accountService.login("seck@samanecorp.com", "passer"));
 
-		Assertions.assertTrue(user.isPresent());
+		Assertions.assertEquals("user with email seck@samanecorp.com and password passer not found", exception.getMessage());
 	}
 }
