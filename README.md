@@ -4,7 +4,6 @@
 ![JEE](https://img.shields.io/badge/Ngor%20Seck-Android-blue)
 ```
 Environnement: 
-Tomcat 9
 JDK 17
 Maven 3.9.*
 ```
