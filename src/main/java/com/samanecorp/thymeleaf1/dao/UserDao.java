@@ -7,11 +7,13 @@ import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +47,23 @@ public class UserDao {
 
 		cr.orderBy(cb.asc(user.get("lastName")));
 		cr.select(user);
+
+		return Optional.ofNullable(em.createQuery(cr).getResultList());
+	}
+
+	public Optional<List<UserEntity>> allUserInALastName() {
+
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<UserEntity> cr = cb.createQuery(UserEntity.class);
+		Root<UserEntity> user = cr.from(UserEntity.class);
+
+		List<String> parentList = Arrays.asList("SECK", "SENE");
+		In<String> in = cb.in(user.get("lastName"));
+		parentList.forEach(in::value);
+
+		cr.orderBy(cb.asc(user.get("lastName")));
+		cr.select(user);
+		cr.where(in);
 
 		return Optional.ofNullable(em.createQuery(cr).getResultList());
 	}

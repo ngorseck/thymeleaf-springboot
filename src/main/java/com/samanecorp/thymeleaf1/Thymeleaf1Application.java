@@ -55,5 +55,12 @@ public class Thymeleaf1Application implements CommandLineRunner {
 					data.forEach(user -> System.out.println("FistName : " + user.get(0) + ", LastName : " + user.get(1)));
 					return data;
 				}).orElseThrow();
+
+		System.out.println("==========================IN Projections===============================");
+		userDao.allUserInALastName()
+				.map(userEntities -> {
+					System.out.println(userEntities.size());
+					return userEntities.get(0);
+				}).orElseThrow();
 	}
 }
