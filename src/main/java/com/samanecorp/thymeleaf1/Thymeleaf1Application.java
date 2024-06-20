@@ -2,7 +2,7 @@ package com.samanecorp.thymeleaf1;
 
 import com.samanecorp.thymeleaf1.dao.UserDao;
 import com.samanecorp.thymeleaf1.dto.UserDto;
-import com.samanecorp.thymeleaf1.entity.UserEntity;
+import com.samanecorp.thymeleaf1.entity.RoleEnum;
 import com.samanecorp.thymeleaf1.exception.EntityNotFoundException;
 import com.samanecorp.thymeleaf1.service.IUserService;
 import lombok.AllArgsConstructor;
@@ -23,10 +23,10 @@ public class Thymeleaf1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userService.save(new UserDto(1L, "Ngor","SECK","seck@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
-		userService.save(new UserDto(2L, "Abdou","SENE","sene@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
-		userService.save(new UserDto(3L, "Oumar","DIOUF","diouf@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
-		userService.save(new UserDto(4L, "Moussa","DIATTA","diatta@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
+		userService.save(new UserDto(1L, "Ngor","SECK","seck@samanecorporation.com", new BCryptPasswordEncoder().encode("passer"), RoleEnum.IT));
+		userService.save(new UserDto(2L, "Abdou","SENE","sene@samanecorporation.com", new BCryptPasswordEncoder().encode("passer"), RoleEnum.ADMIN));
+		userService.save(new UserDto(3L, "Oumar","DIOUF","diouf@samanecorporation.com", new BCryptPasswordEncoder().encode("passer"), RoleEnum.FINANCE));
+		userService.save(new UserDto(4L, "Moussa","DIATTA","diatta@samanecorporation.com", new BCryptPasswordEncoder().encode("passer"), RoleEnum.ADMIN));
 
 		System.out.println("=========================ORDER BY================================");
 		userDao.allUserOrderByLastName()

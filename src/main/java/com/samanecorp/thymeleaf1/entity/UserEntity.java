@@ -27,4 +27,6 @@ public class UserEntity implements Serializable {
 	private String email;
 	@Column(name = "password", nullable = false)
 	private String password;
+	@Enumerated(EnumType.STRING)
+	private RoleEnum role;
 }

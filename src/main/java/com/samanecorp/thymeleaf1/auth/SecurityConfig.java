@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
 //            our private endpoints
-                        //.requestMatchers(HttpMethod.GET, "/admin").hasRole("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/admin").hasAnyRole("IT")
                         .anyRequest().authenticated())
                 .authenticationManager(authenticationManager)
                 .build();
