@@ -15,7 +15,7 @@ public class AdminController {
 
 	private IUserService userService;
 
-	public AdminController(IUserService userService, UserMapper userDto, UserMapper userMapper) {
+	public AdminController(IUserService userService) {
 		this.userService = userService;
 	}
 

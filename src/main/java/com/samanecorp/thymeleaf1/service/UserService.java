@@ -3,6 +3,8 @@ package com.samanecorp.thymeleaf1.service;
 import com.samanecorp.thymeleaf1.dao.IUserDao;
 import com.samanecorp.thymeleaf1.dao.UserDao;
 import com.samanecorp.thymeleaf1.dto.UserDto;
+import com.samanecorp.thymeleaf1.entity.UserEntity;
+import com.samanecorp.thymeleaf1.exception.DuplicateException;
 import com.samanecorp.thymeleaf1.exception.EntityNotFoundException;
 import com.samanecorp.thymeleaf1.mapper.UserMapper;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,12 @@ public class UserService implements IUserService {
 
 	@Override
 	public UserDto save(UserDto userDto) {
-		
+		String email = userDto.getEmail();
+		Optional<UserEntity> existingUser = userDao.findByEmail(email);
+		if (existingUser.isPresent()) {
+			throw new DuplicateException(String.format("User with the email address '%s' already exists.", email));
+		}
+
 		return userMapper.toUserDto(userDao.save(userMapper.toUserEntity(userDto)));
 	}
 

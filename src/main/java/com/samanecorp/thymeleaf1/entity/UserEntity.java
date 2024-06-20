@@ -18,7 +18,7 @@ public class UserEntity implements Serializable {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(name = "firstName", length = 250, nullable = false)
 	private String firstName;
 	@Column(name = "lastName", length = 200, nullable = false)
@@ -27,6 +27,4 @@ public class UserEntity implements Serializable {
 	private String email;
 	@Column(name = "password", nullable = false)
 	private String password;
-	
-
 }

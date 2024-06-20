@@ -4,12 +4,15 @@ import com.samanecorp.thymeleaf1.dto.UserDto;
 import com.samanecorp.thymeleaf1.service.IUserService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -24,7 +27,7 @@ public class LoginController  {
 		this.userService = userService;
 	}
 
-	@GetMapping("/")
+	/*@GetMapping("/")
 	public String login() {
 		return "index";
 	}
@@ -40,6 +43,27 @@ public class LoginController  {
 			log.error("Erreur", e);
 			return "redirect:/";
 		}
+	}*/
+
+	/**
+	 * Spring security
+	 */
+	@GetMapping(value = "/login")
+	public String login() {
+
+		return "index";
+	}
+
+	@GetMapping(value = "")
+	public String home() {
+
+		return "redirect:/logon";
+	}
+
+	@GetMapping(value = "/logon")
+	public String logon(HttpServletRequest req, HttpServletResponse resp) {
+
+		return "redirect:/welcome";
 	}
 
 	@GetMapping("/error")

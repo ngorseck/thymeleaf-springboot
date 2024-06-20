@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 @AllArgsConstructor
@@ -22,18 +23,10 @@ public class Thymeleaf1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userService.save(new UserDto(1L, "Ngor","SECK","seck@samanecorporation.com","passer"));
-		userService.save(new UserDto(2L, "Abdou","SENE","sene@samanecorporation.com","passer"));
-		userService.save(new UserDto(3L, "Oumar","DIOUF","diouf@samanecorporation.com","passer"));
-		userService.save(new UserDto(4L, "Moussa","DIATTA","diatta@samanecorporation.com","passer"));
-
-		System.out.println("=========================LOGIN================================");
-		userDao.login("seck@samanecorporation.com", "passer")
-				.map(user -> {
-					System.out.println(user.getEmail());
-					return user;
-				})
-				.orElseThrow(() -> new EntityNotFoundException("User not found"));
+		userService.save(new UserDto(1L, "Ngor","SECK","seck@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
+		userService.save(new UserDto(2L, "Abdou","SENE","sene@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
+		userService.save(new UserDto(3L, "Oumar","DIOUF","diouf@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
+		userService.save(new UserDto(4L, "Moussa","DIATTA","diatta@samanecorporation.com", new BCryptPasswordEncoder().encode("passer")));
 
 		System.out.println("=========================ORDER BY================================");
 		userDao.allUserOrderByLastName()
