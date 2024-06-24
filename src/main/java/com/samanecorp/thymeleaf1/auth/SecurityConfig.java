@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/signup").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers( "/public/**").permitAll()
 //            our private endpoints
                         .requestMatchers(HttpMethod.GET, "/admin").hasAnyRole("IT")
                         .anyRequest().authenticated())
