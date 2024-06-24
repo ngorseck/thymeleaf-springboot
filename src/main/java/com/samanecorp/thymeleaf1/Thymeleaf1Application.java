@@ -49,6 +49,7 @@ public class Thymeleaf1Application implements CommandLineRunner {
 					return data;
 				}).orElseThrow();
 
+
 		System.out.println("==========================IN Projections===============================");
 		userDao.allUserInALastName()
 				.map(userEntities -> {
