@@ -27,6 +27,5 @@ jobs:
         run: |
           mvn -B spring-boot:build-image -Dspring-boot.build-
           image.publish=true \
-          -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} \
-          -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
+          -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
           -DskipTests
