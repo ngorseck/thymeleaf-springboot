@@ -25,7 +25,15 @@ jobs:
 #          -Dsonar.token=sqp_afd0642fc8bf0fe442190f85ed57ce2bb4f8a1f4
       - name: Publish to Docker
         run: |
-          mvn -B spring-boot:build-image -Dspring-boot.build-
-          image.publish=true \
+          mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
           -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
           -DskipTests
+
+#      - name: Build docker images
+#        run: docker compose build
+#      - name: log to docker hub
+#        run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+#      - name: tag image
+#        run: docker tag thymeleaf-springboot:0.0.1 ngorseck/thymeleaf-springboot:0.0.1
+#      - name: push to docker hub tests
+#        run: docker push ngorseck/thymeleaf-springboot:0.0.1
