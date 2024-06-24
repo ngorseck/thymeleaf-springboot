@@ -1,0 +1,32 @@
+name: build
+on:
+  push:
+    branches: [ main, release ]
+    paths-ignore:
+      - '**/README.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build with Maven
+        run: mvn -B package -DskipTests
+      - name: Sonar analysis
+        run: |
+          mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=thymelaef1 \
+          -Dsonar.projectName='thymelaef1' \
+          -Dsonar.host.url=http://localhost:9000 \
+          -Dsonar.token=sqp_afd0642fc8bf0fe442190f85ed57ce2bb4f8a1f4
+      - name: Publish to Docker
+        run: |
+          mvn -B spring-boot:build-image -Dspring-boot.build-
+          image.publish=true \
+          -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} \
+          -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
+          -DskipTests

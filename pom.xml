@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.samanecorp</groupId>
 	<artifactId>thymeleaf1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>thymeleaf1</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -19,6 +19,8 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+		<docker.user/>
+		<docker.token/>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -88,6 +90,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>thymeleaf-springboot</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -129,7 +132,40 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
+			<!-- github action -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+					<image>
+						<name>ngorseck/${project.artifactId}:${project.version}</name>
+					</image>
+					<docker>
+						<publishRegistry>
+							<username>${docker.user}</username>
+							<password>${docker.token}</password>
+							<url>https://index.docker.io/v1</url>
+						</publishRegistry>
+					</docker>
+				</configuration>
+			</plugin>
 		</plugins>
+		<!-- sonar -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.7.0.1746</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>
