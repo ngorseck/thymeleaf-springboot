@@ -16,6 +16,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @EnableWebSecurity
 public class SecurityConfig {
 
+    public static final String SIGNUP = "/signup";
+    public static final String LOGIN = "/login";
     private final UserDetailsServiceImpl userDetailsService;
 
     public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
@@ -31,14 +33,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         return http
                 .cors(AbstractHttpConfigurer::disable)
-                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login"))
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage(LOGIN))
 //        Set permissions on endpoints
                 .authorizeHttpRequests(auth -> auth
 //            our public endpoints
-                        .requestMatchers(HttpMethod.POST, "/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/signup").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, SIGNUP).permitAll()
+                        .requestMatchers(HttpMethod.GET, SIGNUP).permitAll()
+                        .requestMatchers(HttpMethod.POST, LOGIN).permitAll()
+                        .requestMatchers(HttpMethod.GET, LOGIN).permitAll()
                         .requestMatchers( "/public/**").permitAll()
 //            our private endpoints
                         .requestMatchers(HttpMethod.GET, "/admin").hasAnyRole("IT")

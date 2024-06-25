@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Thymeleaf1Application implements CommandLineRunner {
 
+	public static final String NO_DATA_AVAILABLE = "no data available";
 	private final IUserService userService;
 	private final UserDao userDao;
 	private final Logger logger = LoggerFactory.getLogger(Thymeleaf1Application.class);
@@ -54,14 +55,14 @@ public class Thymeleaf1Application implements CommandLineRunner {
 				.map(number -> {
 					logger.info("User count: {}", number);
 					return number;
-				}).orElseThrow(() -> new DataNotFoundException("no data available"));
+				}).orElseThrow(() -> new DataNotFoundException(NO_DATA_AVAILABLE));
 
 		logger.info("==========================Projections===============================");
 		userDao.allLastNameAndFirstName()
 				.map(data -> {
 					data.forEach(user -> logger.info("FistName : {}, LastName : {}", user.get(0), user.get(1)));
 					return data;
-				}).orElseThrow(() -> new DataNotFoundException("no data available"));
+				}).orElseThrow(() -> new DataNotFoundException(NO_DATA_AVAILABLE));
 
 
 		logger.info("==========================IN Projections===============================");
@@ -69,6 +70,6 @@ public class Thymeleaf1Application implements CommandLineRunner {
 				.map(userEntities -> {
 					logger.info("{}",userEntities.size());
 					return userEntities.get(0);
-				}).orElseThrow(() -> new DataNotFoundException("no data available"));
+				}).orElseThrow(() -> new DataNotFoundException(NO_DATA_AVAILABLE));
 	}
 }

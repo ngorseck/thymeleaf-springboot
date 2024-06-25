@@ -14,7 +14,6 @@ import com.samanecorp.thymeleaf1.exception.EntityNotFoundException;
 import com.samanecorp.thymeleaf1.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +23,7 @@ import org.springframework.context.MessageSource;
 
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTest {
 
 	@InjectMocks
 	private UserService accountService;
@@ -37,7 +36,7 @@ public class UserServiceTest {
 
 
 	@BeforeEach
-	void intit() {
+	void init() {
 		accountDao = mock(IUserDao.class);
 		userMapper = mock(UserMapper.class);
 		messageSource = mock(MessageSource.class);
