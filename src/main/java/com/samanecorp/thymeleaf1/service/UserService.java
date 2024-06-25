@@ -1,7 +1,6 @@
 package com.samanecorp.thymeleaf1.service;
 
 import com.samanecorp.thymeleaf1.dao.IUserDao;
-import com.samanecorp.thymeleaf1.dao.UserDao;
 import com.samanecorp.thymeleaf1.dto.UserDto;
 import com.samanecorp.thymeleaf1.entity.UserEntity;
 import com.samanecorp.thymeleaf1.exception.DuplicateException;
@@ -45,11 +44,8 @@ public class UserService implements IUserService {
 	@Override
 	public Optional<UserDto> login(String email, String password) {
 		return userDao.findByEmailAndPassword(email, password)
-				.map(userEntity -> {
-
-					return Optional.of(userMapper.toUserDto(userEntity));
-				})
-				.orElseThrow(
+				.map(userEntity -> Optional.of(userMapper.toUserDto(userEntity))
+				).orElseThrow(
 						() -> new EntityNotFoundException(
 						messageSource.getMessage("user.notfound",
 								new Object[]{email, password},
