@@ -3,18 +3,19 @@ version: '3.9'
 services:
 
   app-thymeleaf-springboot:
-    image: thymeleaf-springboot:0.0.1
+    #image pull from docker hub
+    image: ngorseck/thymeleaf1:0.0.1
     container_name: container-thymeleaf-springboot
     ports:
       - "8080:8080"
     restart: unless-stopped
-    build:
-      context: ./
-      dockerfile: Dockerfile
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
     environment:
       directoryDatas: /app/data/
     volumes:
-      - ./datas:/app/data
+      - datas:/app/data
 
 volumes:
   datas:
