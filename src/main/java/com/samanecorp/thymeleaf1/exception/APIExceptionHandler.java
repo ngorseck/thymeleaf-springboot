@@ -18,4 +18,13 @@ public class APIExceptionHandler {
                 LocalDateTime.now());
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = {DataNotFoundException.class})
+    public ResponseEntity<APIException> handleDataNotFoundException(DataNotFoundException e) {
+        APIException exception = new APIException(
+                e.getMessage(),
+                HttpStatus.NOT_FOUND,
+                LocalDateTime.now());
+        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
+    }
 }
