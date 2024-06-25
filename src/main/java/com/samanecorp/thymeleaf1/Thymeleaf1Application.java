@@ -30,7 +30,7 @@ public class Thymeleaf1Application implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
         String PASSWORD = "passer";
         userService.save(new UserDto(1L, "Ngor","SECK","seck@samanecorporation.com", new BCryptPasswordEncoder().encode(PASSWORD), RoleEnum.IT));
 		userService.save(new UserDto(2L, "Abdou","SENE","sene@samanecorporation.com", new BCryptPasswordEncoder().encode(PASSWORD), RoleEnum.ADMIN));
