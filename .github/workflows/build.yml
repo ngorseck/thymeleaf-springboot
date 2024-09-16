@@ -40,7 +40,7 @@ jobs:
         run: ls staging/
       #Build docker image and push to docker hub
       - name: Build docker images
-        run: docker build -t ngorseck/thymeleaf-springboot:0.0.2 .
+        run: docker build --no-cache -t ngorseck/thymeleaf-springboot:0.0.2 .
       - name: show image
         run: docker image ls
       - name: log to docker hub
