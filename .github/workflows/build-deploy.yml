@@ -28,6 +28,7 @@ jobs:
          name: Package
          path: staging
          if-no-files-found: error
+         retention-days: 5
       - name: Show Upload artifacts
         run: ls staging/
       - run: echo "🍏 This job's status is ${{ job.status }}."
