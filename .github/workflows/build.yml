@@ -28,11 +28,16 @@ jobs:
           mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
           -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
           -DskipTests
-      - run: mkdir staging && cp target/*.jar staging
-      - uses: actions/upload-artifact@v4
+      - name: Upload artifacts
+        run: mkdir staging && cp target/*.jar staging
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
          name: Package
          path: staging
+         if-no-files-found: error
+      - name: Show Upload artifacts
+        run: ls staging/
 #      - name: Build docker images
 #        run: docker compose build
 #      - name: log to docker hub
