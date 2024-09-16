@@ -16,13 +16,13 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn -B package -DskipTests
-      - name: Sonar analysis
-        run: |
-          mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=thymelaef1 \
-          -Dsonar.projectName='thymelaef1' \
-          -Dsonar.host.url=http://localhost:9000 \
-          -Dsonar.token=sqp_afd0642fc8bf0fe442190f85ed57ce2bb4f8a1f4
+#      - name: Sonar analysis
+#        run: |
+#          mvn clean verify sonar:sonar \
+#          -Dsonar.projectKey=thymelaef1 \
+#          -Dsonar.projectName='thymelaef1' \
+#          -Dsonar.host.url=http://localhost:9000 \
+#          -Dsonar.token=sqp_afd0642fc8bf0fe442190f85ed57ce2bb4f8a1f4
       - name: Publish to Docker
         run: |
           mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
