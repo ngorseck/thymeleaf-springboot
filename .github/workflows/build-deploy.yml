@@ -54,6 +54,11 @@ jobs:
       # checkout project to get Dockerfile
       - name: Checkout code
         uses: actions/checkout@v4
+      #Get artifact from build JOB
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Package
       #Build docker image with Dockerfile and push to docker hub
       - name: Build docker images
         run: docker build --no-cache -t ngorseck/thymeleaf-springboot:0.0.2 .
