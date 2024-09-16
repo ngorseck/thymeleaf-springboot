@@ -64,7 +64,7 @@ jobs:
         with:
           name: package-final
       - name: Show downloaded artifacts directory
-        run: pwd
+        run: pwd && ls .
       #Build docker image with Dockerfile and push to docker hub
       - name: Build docker images
         run: docker build --no-cache -t ngorseck/thymeleaf-springboot:0.0.2 .
