@@ -9,6 +9,7 @@ on: [push]
 jobs:
   #job 1
   build:
+    name: Build job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,7 +26,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-         name: Package
+         name: package-final
          path: staging
          if-no-files-found: error
          retention-days: 5
@@ -35,6 +36,7 @@ jobs:
 
   # job 2
   check-sonar:
+    name: analysis job
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -49,6 +51,7 @@ jobs:
 
   #job 3
   deploy:
+    name: deploy job
     needs: [build, check-sonar]
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +62,9 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v4
         with:
-          name: Package
+          name: package-final
+      - name: Show downloaded artifacts directory
+        run: pwd
       #Build docker image with Dockerfile and push to docker hub
       - name: Build docker images
         run: docker build --no-cache -t ngorseck/thymeleaf-springboot:0.0.2 .
