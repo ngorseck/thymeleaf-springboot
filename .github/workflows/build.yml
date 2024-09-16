@@ -23,11 +23,11 @@ jobs:
 #          -Dsonar.projectName='thymelaef1' \
 #          -Dsonar.host.url=http://localhost:9000 \
 #          -Dsonar.token=sqp_afd0642fc8bf0fe442190f85ed57ce2bb4f8a1f4
-      - name: Publish to Docker
-        run: |
-          mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
-          -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
-          -DskipTests
+#      - name: Publish to Docker
+#        run: |
+#          mvn -B spring-boot:build-image -Dspring-boot.build-image.publish=true \
+#          -Ddocker.user=${{ secrets.DOCKER_HUB_USER }} -Ddocker.token=${{ secrets.DOCKER_HUB_TOKEN }} \
+#          -DskipTests
       - name: Create directory for Uploading artifacts
         run: mkdir staging && cp target/*.jar staging
       - name: Upload artifacts
@@ -38,7 +38,15 @@ jobs:
          if-no-files-found: error
       - name: Show Upload artifacts
         run: ls staging/
-
+      #Build docker image and push to docker hub
+      - name: Build docker images
+        run: docker build -t ngorseck/thymeleaf-springboot:0.0.2 .
+      - name: show image
+        run: docker image ls
+      - name: log to docker hub
+        run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: push image to docker hub
+        run: docker push ngorseck/thymeleaf-springboot:0.0.2
 #      - name: Build docker images
 #        run: docker compose build
 #      - name: log to docker hub
