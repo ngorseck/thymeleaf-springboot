@@ -51,6 +51,9 @@ jobs:
     needs: [build, check-sonar]
     runs-on: ubuntu-latest
     steps:
+      # checkout project to get Dockerfile
+      - name: Checkout code
+        uses: actions/checkout@v4
       #Build docker image with Dockerfile and push to docker hub
       - name: Build docker images
         run: docker build --no-cache -t ngorseck/thymeleaf-springboot:0.0.2 .
