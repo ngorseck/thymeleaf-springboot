@@ -34,6 +34,7 @@ jobs:
 
   # job 2
   check-sonar:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -47,6 +48,7 @@ jobs:
 
   #job 3
   deploy:
+    needs: [build, check-sonar]
     runs-on: ubuntu-latest
     steps:
       #Build docker image with Dockerfile and push to docker hub
