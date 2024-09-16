@@ -9,6 +9,23 @@ JDK 17
 Maven 3.9.*
 ```
 
+### Github actions ###
 
 
 ![img.png](img.png)
+
+![img_1.png](img_1.png)
+
+![img_2.png](img_2.png)
+
+``` Build job ```
+
+![img_3.png](img_3.png)
+
+``` Analysis job ```
+
+![img_4.png](img_4.png)
+
+``` Deploy job ```
+
+![img_5.png](img_5.png)
