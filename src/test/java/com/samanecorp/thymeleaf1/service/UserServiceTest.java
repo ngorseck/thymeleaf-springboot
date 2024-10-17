@@ -21,7 +21,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
 
-
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
@@ -37,12 +36,12 @@ class UserServiceTest {
 
 	@BeforeEach
 	void init() {
-		accountDao = mock(IUserDao.class);
+		/*accountDao = mock(IUserDao.class);
 		userMapper = mock(UserMapper.class);
 		messageSource = mock(MessageSource.class);
 		accountService.setUserDao(accountDao);
 		accountService.setMessageSource(messageSource);
-		accountService.setUserMapper(userMapper);
+		accountService.setUserMapper(userMapper);*/
 	}
 	
 	@Test
